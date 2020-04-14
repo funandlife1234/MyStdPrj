@@ -1,6 +1,8 @@
 package com.example.mystdprj.model;
 
-public class Company {
+import java.io.Serializable;
+
+public class Company implements Serializable {
     int comId;
     String name;
     String category;

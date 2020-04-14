@@ -20,6 +20,7 @@ public class SubItemPost extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sub_item_post);
 
+        /*
         Intent intent = getIntent();
         mCompanies = (ArrayList<Company>) intent.getExtras().get("ITEM");
         int Position = (int) intent.getExtras().get("POSITION");
@@ -34,6 +35,8 @@ public class SubItemPost extends AppCompatActivity {
         tvSubAddress.setText(company.getAddress());
         tvSubPhoneNumber.setText(company.getPhone());
         tvSubMenu.setText(company.getMenu());
+
+         */
 
     }
 }

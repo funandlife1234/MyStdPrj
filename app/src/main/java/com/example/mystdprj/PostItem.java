@@ -114,7 +114,7 @@ public class PostItem extends AppCompatActivity {
 
         @Override
         public void onClick(View view) {
-            Intent mintent = new Intent(mContext, SubItemPost.class);
+            Intent mintent = new Intent(PostItem.this, SubItemPost.class);
             //Toast.makeText(mContext, "Test", Toast.LENGTH_SHORT).show();
             int position = getAdapterPosition();
             int comPosition = mCompanies.get(position).getComId();
