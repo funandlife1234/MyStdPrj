@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mystdprj.model.Company;
 
@@ -44,14 +45,15 @@ public class PostItem extends AppCompatActivity {
 
         // 1. 서버에서 아이템 목록을 가져와서 add 시키는 스레드를 만드는 작업 필요.
 
-        mCompanies.add(new Company("김밥천국", category, "010-0000-0000", "서울시 강남구 도곡동 423번지", "야채김밥"));
-        mCompanies.add(new Company("김밥천국", category, "010-0000-0000", "서울시 강남구 도곡동 4212번지", "야채김밥"));
-        mCompanies.add(new Company("김밥천국", category, "010-0000-0000", "서울시 강남구 도곡동 423번지", "야채김밥"));
-        mCompanies.add(new Company("김밥천국", category, "010-0000-0000", "서울시 강남구 도곡동 423번지", "야채김밥"));
-        mCompanies.add(new Company("김밥천국", category, "010-0000-0000", "서울시 강남구 도곡동 423번지", "야채김밥"));
+        mCompanies.add(new Company(1,"김밥천국", category, "010-0000-0000", "서울시 강남구 도곡동 423번지", "야채김밥"));
+        mCompanies.add(new Company(2,"김밥천국", category, "010-0000-0000", "서울시 강남구 도곡동 4212번지", "야채김밥"));
+        mCompanies.add(new Company(3,"김밥천국", category, "010-0000-0000", "서울시 강남구 도곡동 423번지", "야채김밥"));
+        mCompanies.add(new Company(4,"김밥천국", category, "010-0000-0000", "서울시 강남구 도곡동 423번지", "야채김밥"));
+        mCompanies.add(new Company(5,"김밥천국", category, "010-0000-0000", "서울시 강남구 도곡동 423번지", "야채김밥"));
+        mCompanies.add(new Company(6,"김밥천국", category, "010-0000-0000", "서울시 강남구 도곡동 423번지", "야채김밥"));
 
         mRecyclerView = findViewById(R.id.rv_company_list);
-        mAdapter = new RecyclerViewCategoryAdapter(this, mCompanies);
+        mAdapter = new RecyclerViewCategoryAdapter(PostItem.this, mCompanies);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setAdapter(mAdapter);
 
@@ -89,17 +91,37 @@ public class PostItem extends AppCompatActivity {
         }
     }
 
-    public class RecyclerViewCategoryHolder extends RecyclerView.ViewHolder{
+    public class RecyclerViewCategoryHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView tvComName, tvCategory, tvPhoneNumber, tvAddress, tvMenu;
+        LinearLayout llOuterItem;
+        Context mContext;
+        ArrayList<Company> mCompanies;
 
         public RecyclerViewCategoryHolder(@NonNull View itemView, Context context, ArrayList<Company> companies) {
             super(itemView);
+            llOuterItem = itemView.findViewById(R.id.ll_outer_item);
+            mCompanies = companies;
+            mContext = context;
+
             tvComName = itemView.findViewById(R.id.tv_com_name);
             tvCategory = itemView.findViewById(R.id.tv_category);
             tvAddress = itemView.findViewById(R.id.tv_address);
             tvPhoneNumber = itemView.findViewById(R.id.tv_phone);
             tvMenu = itemView.findViewById(R.id.tv_menu);
+            llOuterItem.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            Intent mintent = new Intent(mContext, SubItemPost.class);
+            //Toast.makeText(mContext, "Test", Toast.LENGTH_SHORT).show();
+            int position = getAdapterPosition();
+            int comPosition = mCompanies.get(position).getComId();
+            mintent.putExtra("ITEM", mCompanies);
+            mintent.putExtra("POSITION", comPosition);
+            Toast.makeText(PostItem.this, "Test "+mCompanies.get(position).getComId(), Toast.LENGTH_SHORT).show();
+            startActivity(mintent);
         }
     }
 }

@@ -1,18 +1,24 @@
 package com.example.mystdprj.model;
 
 public class Company {
+    int comId;
     String name;
     String category;
     String phone;
     String address;
     String menu;
 
-    public Company(String name, String category, String phone, String address, String menu) {
+    public Company(int comId, String name, String category, String phone, String address, String menu) {
+        this.comId = comId;
         this.name = name;
         this.category = category;
         this.phone = phone;
         this.address = address;
         this.menu = menu;
+    }
+
+    public int getComId() {
+        return comId;
     }
 
     public String getName() {
