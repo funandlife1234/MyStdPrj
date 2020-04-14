@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="6dp"
+    android:paddingBottom="6dp"
+    tools:context=".PostItem">
+
+
+    <TextView
+        android:text="company name"
+        android:id="@+id/tv_com_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+    <TextView
+        android:text="phone number"
+        android:id="@+id/tv_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+    <TextView
+        android:text="address"
+        android:id="@+id/tv_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+    <TextView
+        android:text="menu"
+        android:id="@+id/tv_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+
+</LinearLayout>
