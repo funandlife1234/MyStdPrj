@@ -10,6 +10,7 @@ public class Company implements Serializable {
     String address;
     String menu;
 
+    
     public Company(int comId, String name, String category, String phone, String address, String menu) {
         this.comId = comId;
         this.name = name;
