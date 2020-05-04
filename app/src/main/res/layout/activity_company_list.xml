@@ -1,17 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:text="Category"
-        android:id="@+id/tv_category"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <include android:layout_width="match_parent"
+        android:layout_height="50dp"
+        layout="@layout/toolbar"
         />
-
+    <!--
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_category_list"
+        android:layout_width="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_height="36dp"
+        android:paddingTop="6dp"/>
+    -->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tl_cate"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        app:tabMode="scrollable"
+        app:tabGravity="fill"
+        />
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/vp_cate"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+    <!--
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_company_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    -->
 </LinearLayout>

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,11 +8,97 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_main_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+    <include android:layout_width="match_parent"
+        android:layout_height="50dp"
+        layout="@layout/toolbar"
+        />
 
-    </androidx.recyclerview.widget.RecyclerView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <FrameLayout
+            android:layout_alignParentBottom="true"
+            android:id="@+id/fl_main_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#FFFFFF"
+            android:layout_gravity="bottom">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <TextView
+                    android:text="홈"
+                    android:gravity="center"
+                    android:textSize="10dp"
+                    android:id="@+id/tv_main_bottom_menu1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/tv_main_bottom_menu2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="즐겨찾기"
+                    android:textSize="10dp" />
+
+                <TextView
+                    android:text="주문내역"
+                    android:gravity="center"
+                    android:textSize="10dp"
+                    android:id="@+id/tv_main_bottom_menu3"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+                <TextView
+                    android:text="마이페이지"
+                    android:gravity="center"
+                    android:textSize="10dp"
+                    android:id="@+id/tv_main_bottom_menu4"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+            </LinearLayout>
+        </FrameLayout>
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/ns_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <androidx.viewpager.widget.ViewPager
+                    android:background="#878787"
+                    android:id="@+id/vp_notify"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    />
+                <FrameLayout
+                    android:id="@+id/fl_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+                </FrameLayout>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:id="@+id/fl_notify"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    />
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+
+    </RelativeLayout>
+
 </LinearLayout>

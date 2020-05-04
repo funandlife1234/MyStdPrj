@@ -1,115 +1,86 @@
 package com.example.mystdprj;
 
-import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.GridLayout;
+import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.mystdprj.model.Item;
+import com.google.android.material.tabs.TabLayout;
 
-import java.util.ArrayList;
+public class MainActivity extends AppCompatActivity  {
 
-public class MainActivity extends AppCompatActivity {
-
-    private RecyclerView rvMainList;
-    private ArrayList<Item> mItems = new ArrayList<>();
-    private MyRecyclerViewAdapter adapter;
+    ViewPager viewPagerNotify;
+    Fragment[] fragments;
+    int mPositionNum;
+    String mCategoryName;
+    TextView tvMainTop;
+    FrameLayout frameLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mItems.add(new Item("1인분"));
-        mItems.add(new Item("한식"));
-        mItems.add(new Item("분식"));
-        mItems.add(new Item("치킨"));
-        mItems.add(new Item("일식"));
-        mItems.add(new Item("중식"));
+        /*
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+        */
+
+        Toolbar toolbar = findViewById(R.id.app_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("푸파의 최애 리스트");
 
 
-        rvMainList = findViewById(R.id.rv_main_list);
-        adapter = new MyRecyclerViewAdapter(this, mItems);
+        viewPagerNotify = findViewById(R.id.vp_notify);
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
-        /**
-        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup(){
+        fragments = new Fragment[3];
+        fragments[0] = new NotifyViewPagerFragment(1);
+        fragments[1] = new NotifyViewPagerFragment(2);
+        fragments[2] = new NotifyViewPagerFragment(3);
 
-            @Override
-            public int getSpanSize(int position) {
-                return 0;
-            }
-        });
-         */
-        rvMainList.setLayoutManager(gridLayoutManager);
-        rvMainList.setAdapter(adapter);
+        NotifyViewPagerAdapter notifyViewPagerAdapter = new NotifyViewPagerAdapter(getSupportFragmentManager(), fragments);
+        viewPagerNotify.setAdapter(notifyViewPagerAdapter);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment fragment = new ListItem();
+        Fragment notifyFragment = new NotifyFragment();
+        fragmentManager.beginTransaction()
+                .add(R.id.fl_main, fragment)
+                .add(R.id.fl_notify, notifyFragment)
+                .commit();
+
+        frameLayout = findViewById(R.id.fl_main_bottom);
+
+        frameLayout.bringToFront();
+
 
     }
 
-    public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewHolder>{
+    private class NotifyViewPagerAdapter extends FragmentPagerAdapter {
 
-        Context mContext;
-        ArrayList<Item> mItems;
+        Fragment[] fragments;
 
-        public MyRecyclerViewAdapter(Context context, ArrayList<Item> items) {
-            super();
-            mContext = context;
-            mItems = items;
-        }
-
-        @NonNull
-        @Override
-        public MyRecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(mContext).inflate(R.layout.post_item, parent, false);
-            return new MyRecyclerViewHolder(view, mContext, mItems);
+        public NotifyViewPagerAdapter(FragmentManager fm, Fragment[] fragments) {
+            super(fm);
+            this.fragments = fragments;
         }
 
         @Override
-        public void onBindViewHolder(@NonNull MyRecyclerViewHolder holder, int position) {
-            holder.tvPost.setText(mItems.get(position).getName());
+        public Fragment getItem(int position) {
+            return fragments[position];
         }
 
         @Override
-        public int getItemCount() {
-            return mItems.size();
+        public int getCount() {
+            return fragments.length;
         }
     }
-
-    private class MyRecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
-        TextView tvPost;
-        Context mContext;
-        ArrayList<Item> mItems;
-
-        public MyRecyclerViewHolder(@NonNull View itemView, Context context, ArrayList<Item> items) {
-            super(itemView);
-            tvPost = itemView.findViewById(R.id.tv_item);
-            tvPost.setOnClickListener(this);
-            mContext = context;
-            mItems = items;
-        }
-
-        @Override
-        public void onClick(View view) {
-            int position = getAdapterPosition();
-            Toast.makeText(MainActivity.this, "Clicked"+position, Toast.LENGTH_SHORT).show();
-
-            Intent intent = new Intent(mContext, PostItem.class);
-            intent.putExtra("ITEM_POSITION", position);
-            intent.putExtra("ITEM_CATEGORY", mItems.get(position).getName());
-            startActivity(intent);
-        }
-    }
-
 }
